@@ -8,6 +8,7 @@ export interface State {
     email: string
   }
   cart: [{ id: number; qty: number }]
+  tasks: [{ id: number; name: string; completed: boolean }]
 }
 
 export const key: InjectionKey<Store<State>> = Symbol()
@@ -20,6 +21,7 @@ export const store = createStore<State>({
       email: 'jon@snow.com',
     },
     cart: [{ id: 0, qty: 0 }],
+    tasks: [{ id: 0, completed: false, name: '' }],
   },
   mutations: {
     // Cart
@@ -41,10 +43,20 @@ export const store = createStore<State>({
     saveLastName(state, name) {
       state.user.last_name = name
     },
+
+    ADDTASK(
+      state,
+      payload: [{ id: number; completed: boolean; name: string }]
+    ) {
+      state.tasks = payload
+    },
   },
   actions: {
     saveFirstName(context, payload) {
       context.commit('saveFirstName', payload)
+    },
+    saveTasks(context, payload) {
+      context.commit('ADDTASK', payload)
     },
   },
   modules: {},

@@ -13,22 +13,23 @@
     <!-- {{ $store }} -->
     <button @click="postAll()">ADICIONAR</button>
     <!-- <button @click="showget()">hello</button> -->
-    <Dext />
+    <!-- <Dext /> -->
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Dashboard from '@/components/Dashboard/index.vue'
-import Dext from '@/components/Dext/index.vue'
+// import Dext from '@/components/Dext/index.vue'
 import request from '@/services/axiosConnection'
+import { useStore } from '@/store'
 // import { useStore } from '@/store'
 // import { Store } from 'vuex'
 // import { store } from '@/store/index'
 
 export default defineComponent({
   name: 'Home',
-  components: { Dashboard, Dext },
+  components: { Dashboard },
   data() {
     return {
       data: [
@@ -42,15 +43,12 @@ export default defineComponent({
   },
   mounted() {
     this.getAll()
+    this.asd()
   },
   methods: {
     async getAll() {
-      // const StoreTask = store.addTataTasks
       const data = await request.get('status')
       this.data = data
-      // StoreTask()
-      // this.$s
-      // this.
     },
     async postAll() {
       const dataObject = {
@@ -81,11 +79,12 @@ export default defineComponent({
       this.getAll()
     },
 
-    showget() {
-      // const store = useStore()
-      // console.log(store.state.count)
-      // console.log(store.state.dataTasks)
-      // this.$s]this
+    async asd() {
+      const store = useStore()
+      const res = await request.get('status')
+      // store.commit('addTask', res)
+      store.dispatch('saveTasks', res)
+      console.log('oi')
     },
   },
 })

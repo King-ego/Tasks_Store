@@ -21,7 +21,7 @@ const post_or_patch = async (
   url: string,
   type: 'post' | 'patch',
   data: unknown
-) => {
+): Promise<void> => {
   return await api({
     method: type === 'post' ? 'post' : 'patch',
     data,
@@ -37,7 +37,7 @@ const post_or_patch = async (
     })
 }
 
-const deleteOne = async (url: string) => {
+const deleteOne = async (url: string): Promise<void> => {
   return await api({
     method: 'delete',
     url,

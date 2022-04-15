@@ -1,5 +1,13 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <Dext />
   </div>
 </template>
+<script lang="ts">
+import { defineComponent } from 'vue'
+import Dext from '@/components/Dext/index.vue'
+
+export default defineComponent({
+  components: { Dext },
+})
+</script>
